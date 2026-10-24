@@ -1,7 +1,8 @@
 // Gera o site final em dist/.
 //   npm run build  → versão de produção (HTML/CSS minificados, JS ofuscado)
 //   npm run dev    → versão legível, para desenvolvimento
-import { readdir, mkdir, rm, writeFile, readFile, cp, stat } from "node:fs/promises";
+import * as fs from "node:fs/promises";
+import { readdir, stat } from "node:fs/promises";
 import { join, relative, dirname, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { render, icon, iconFill, wa, SITE } from "../src/layout.mjs";
@@ -10,6 +11,27 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "src");
 const DIST = join(ROOT, "dist");
 const DEV = process.argv.includes("--dev");
+
+// OneDrive/TeraBox podem travar arquivos durante a sincronização (EBUSY/EPERM):
+// cada operação de disco é repetida algumas vezes antes de falhar.
+const LOCKED = new Set(["EBUSY", "EPERM", "EACCES", "ENOTEMPTY"]);
+function retry(fn) {
+  return async (...args) => {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        return await fn(...args);
+      } catch (err) {
+        if (!LOCKED.has(err.code) || attempt >= 12) throw err;
+        await new Promise((r) => setTimeout(r, 250 * attempt));
+      }
+    }
+  };
+}
+const mkdir = retry(fs.mkdir);
+const rm = retry(fs.rm);
+const writeFile = retry(fs.writeFile);
+const readFile = retry(fs.readFile);
+const cp = retry(fs.cp);
 
 async function walk(dir) {
   const out = [];
@@ -82,7 +104,8 @@ async function main() {
       identifierNamesGenerator: "hexadecimal",
       selfDefending: true,
       disableConsoleOutput: true,
-      debugProtection: true,
+      // A anti-depuração fica em main.js (respeita a liberação do administrador)
+      debugProtection: false,
       stringArray: true,
       stringArrayEncoding: ["base64"],
       stringArrayThreshold: 0.75,

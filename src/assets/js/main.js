@@ -204,18 +204,63 @@
   /* ---------- Proteção de conteúdo (dificulta cópia casual) ----------
      Observação: nenhum código entregue ao navegador pode ser 100% oculto.
      Estas medidas desencorajam cópia por usuários comuns; a segurança real
-     está nos cabeçalhos HTTP (.htaccess / vercel.json / _headers). */
+     está nos cabeçalhos HTTP (.htaccess / vercel.json / _headers).
+
+     Liberação para o administrador: abrir o site com #liberar=<chave> libera
+     F12, botão direito e seleção neste navegador; #bloquear volta a bloquear.
+     Só o hash SHA-256 da chave fica no código. */
+  var DEV_HASH = "8dd3328d01436bd74be4c8bc167a5fbed9211427763f8da74419fd13b13e1353";
+  var DEV_KEY = "hz-dev";
+  var unlocked = false;
+
+  function storage(fn) {
+    try { return fn(window.localStorage); } catch (err) { return null; }
+  }
+  function sha256(text) {
+    if (!window.crypto || !crypto.subtle || !window.TextEncoder) return Promise.resolve("");
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+    });
+  }
+  function checkDevAccess() {
+    var hash = location.hash;
+    if (hash === "#bloquear") {
+      storage(function (s) { s.removeItem(DEV_KEY); });
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+    var fromUrl = hash.indexOf("#liberar=") === 0 ? decodeURIComponent(hash.slice(9)) : "";
+    var candidate = fromUrl || storage(function (s) { return s.getItem(DEV_KEY); }) || "";
+    if (!candidate) return;
+    sha256(candidate).then(function (h) {
+      if (h !== DEV_HASH) {
+        if (!fromUrl) storage(function (s) { s.removeItem(DEV_KEY); });
+        return;
+      }
+      unlocked = true;
+      document.documentElement.classList.add("dev-unlocked");
+      if (fromUrl) {
+        storage(function (s) { s.setItem(DEV_KEY, candidate); });
+        history.replaceState(null, "", location.pathname + location.search);
+      }
+    });
+  }
+  checkDevAccess();
+  window.addEventListener("hashchange", function () {
+    if (location.hash === "#bloquear") { unlocked = false; document.documentElement.classList.remove("dev-unlocked"); }
+    checkDevAccess();
+  });
+
   var editable = function (el) {
     return el && el.closest && el.closest("input, textarea, select, [contenteditable]");
   };
   document.addEventListener("contextmenu", function (e) {
-    if (!editable(e.target)) e.preventDefault();
+    if (!unlocked && !editable(e.target)) e.preventDefault();
   });
   document.addEventListener("dragstart", function (e) {
-    if (e.target.tagName === "IMG" || e.target.tagName === "A") e.preventDefault();
+    if (!unlocked && (e.target.tagName === "IMG" || e.target.tagName === "A")) e.preventDefault();
   });
   document.addEventListener("copy", function (e) {
-    if (editable(e.target)) return;
+    if (unlocked || editable(e.target)) return;
     var sel = String(window.getSelection());
     if (sel.length > 120 && e.clipboardData) {
       e.preventDefault();
@@ -223,9 +268,10 @@
     }
   });
   document.addEventListener("selectstart", function (e) {
-    if (!editable(e.target)) e.preventDefault();
+    if (!unlocked && !editable(e.target)) e.preventDefault();
   });
   document.addEventListener("keydown", function (e) {
+    if (unlocked) return;
     var k = (e.key || "").toLowerCase();
     var ctrl = e.ctrlKey || e.metaKey;
     var blocked =
@@ -243,7 +289,7 @@
      a página é apagada para que o código não possa ser inspecionado. */
   var locked = false;
   function lockPage() {
-    if (locked) return;
+    if (locked || unlocked) return;
     locked = true;
     document.title = "Conteúdo protegido";
     document.body.className = "is-locked";
@@ -253,6 +299,7 @@
       '<a href="' + location.href.replace(/"/g, "") + '">Recarregar a página</a></div></div>';
   }
   setInterval(function () {
+    if (unlocked) return;
     var t = performance.now();
     debugger; // eslint-disable-line no-debugger
     if (performance.now() - t > 100) lockPage();
