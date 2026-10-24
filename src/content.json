@@ -375,6 +375,14 @@
       "nome": "Softcloudba Tecnologia & Inovação",
       "logo": "/assets/img/softcloudba.png",
       "ordem": 9
+    },
+    {
+      "id": 10,
+      "publicado": true,
+      "link": null,
+      "nome": "Dev Solutions",
+      "logo": "/assets/img/parceiros/dev-solutions.png",
+      "ordem": 10
     }
   ]
 }
