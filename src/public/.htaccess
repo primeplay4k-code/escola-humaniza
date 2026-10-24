@@ -1,0 +1,77 @@
+# ==========================================================================
+# Escola Técnica Humaniza — Configuração de segurança (Apache / Hostinger / cPanel)
+# ==========================================================================
+
+Options -Indexes -MultiViews
+ServerSignature Off
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Força HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Remove www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+  # Redireciona URLs antigas do WordPress
+  RewriteRule ^sobre-nos/?$ /sobre.html [L,R=301]
+  RewriteRule ^documentos/?$ /documentos.html [L,R=301]
+  RewriteRule ^contato/?$ /contato.html [L,R=301]
+  RewriteRule ^blog/?$ /blog.html [L,R=301]
+  RewriteRule ^(curso|cursos-multivix|cursos-presenciais-e-ead-multivix)/?$ /cursos.html [L,R=301]
+
+  # Bloqueia sondagens comuns de WordPress/PHP (o site não usa PHP)
+  RewriteRule ^(wp-admin|wp-login\.php|wp-content/plugins|xmlrpc\.php|wp-config\.php) - [F,L]
+  RewriteRule \.(php|phtml|asp|aspx|jsp|cgi|sh|sql|bak|env|ini|log|git)$ - [F,L,NC]
+
+  # Bloqueia arquivos e pastas ocultas (exceto .well-known)
+  RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+  # Hotlink: impede que outros sites exibam nossas imagens e PDFs
+  RewriteCond %{HTTP_REFERER} !^$
+  RewriteCond %{HTTP_REFERER} !^https?://(www\.)?escolahumaniza\.com [NC]
+  RewriteCond %{HTTP_REFERER} !(google|bing|facebook|instagram|whatsapp)\. [NC]
+  RewriteRule \.(jpe?g|png|gif|webp|svg|pdf)$ - [F,NC,L]
+</IfModule>
+
+# Somente GET/HEAD (site estático)
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_METHOD} !^(GET|HEAD)$
+  RewriteRule .* - [R=405,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Cross-Origin-Resource-Policy "same-site"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
+  Header always unset X-Powered-By
+  Header unset Server
+
+  # Cache: arquivos estáticos por 1 ano, HTML sempre revalidado
+  <FilesMatch "\.(css|js|png|jpe?g|webp|svg|woff2?|pdf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/json application/manifest+json
+</IfModule>
+
+<FilesMatch "^(\.htaccess|\.htpasswd|package(-lock)?\.json|README\.md)$">
+  Require all denied
+</FilesMatch>
