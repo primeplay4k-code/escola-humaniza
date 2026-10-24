@@ -3,3 +3,6 @@ dist/
 .vercel/
 *.terabox.uploading.cfg
 .env*
+
+.vercel
+.env*
