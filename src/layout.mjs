@@ -1,5 +1,5 @@
 // Layout compartilhado: <head>, topo, cabeçalho, rodapé e scripts.
-// Cada página em src/pages define seus metadados num comentário <!--meta {...}-->.
+// O conteúdo vem do painel admin (ou de src/content.json) e é aplicado por configurar().
 
 export const SITE = {
   name: "Escola Técnica Humaniza",
@@ -17,7 +17,59 @@ export const SITE = {
 };
 
 export const wa = (phone, text) =>
-  `https://wa.me/${phone}${text ? "?text=" + encodeURIComponent(text) : ""}`;
+  `https://wa.me/${String(phone).replace(/\D/g, "")}${text ? "?text=" + encodeURIComponent(text) : ""}`;
+
+/** Escapa texto vindo do painel antes de inserir no HTML. */
+export const esc = (v) =>
+  String(v ?? "").replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
+
+/** Caminho de arquivo: "/assets/..." vira relativo à página; URLs (Vercel Blob) ficam como estão. */
+export const arq = (caminho, r) => {
+  const c = String(caminho ?? "");
+  if (c.startsWith("/")) return r + c.slice(1);
+  return /^https:\/\//.test(c) ? esc(c) : "";
+};
+
+export const foneBr = (t) => {
+  const d = String(t ?? "").replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "");
+  return d.length === 11 ? `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}` : d.length === 10 ? `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}` : esc(t);
+};
+
+/** Texto do painel → parágrafos. "- " vira lista e "## " vira subtítulo. */
+export function rico(texto) {
+  const out = [];
+  let lista = [];
+  const fecha = () => { if (lista.length) { out.push(`<ul>${lista.join("")}</ul>`); lista = []; } };
+  for (const linha of String(texto ?? "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean)) {
+    if (linha.startsWith("- ")) { lista.push(`<li>${esc(linha.slice(2))}</li>`); continue; }
+    fecha();
+    out.push(linha.startsWith("## ") ? `<h2>${esc(linha.slice(3))}</h2>` : `<p>${esc(linha)}</p>`);
+  }
+  fecha();
+  return out.join("\n        ");
+}
+
+let CONTEUDO = null;
+export const conteudo = () => CONTEUDO;
+
+/** Aplica o conteúdo do painel nos dados globais usados pelo layout. */
+export function configurar(c) {
+  CONTEUDO = c;
+  const g = c.geral;
+  Object.assign(SITE, {
+    name: g.nomeEscola,
+    phone1: String(g.contato1Telefone).replace(/\D/g, ""),
+    phone1Label: foneBr(g.contato1Telefone),
+    phone2: String(g.contato2Telefone).replace(/\D/g, ""),
+    phone2Label: foneBr(g.contato2Telefone),
+    email1: g.contato1Email,
+    email2: g.contato2Email,
+    instagram: g.instagram,
+    portal: g.portalAluno,
+    forms: g.formularioInscricao,
+    address: g.endereco,
+  });
+}
 
 const icon = (name) => `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 const iconFill = (name) => `<svg class="icon icon--fill" aria-hidden="true"><use href="#i-${name}"/></svg>`;
@@ -26,7 +78,7 @@ const NAV = [
   { id: "inicio", label: "Início", href: "index.html" },
   { id: "sobre", label: "Sobre Nós", href: "sobre.html" },
   { id: "cursos", label: "Cursos", href: "cursos.html", children: [
-    { label: "Técnico em Enfermagem", desc: "Presencial • Reconhecido pelo MEC", href: "cursos.html#tecnico", icon: "stethoscope" },
+    { label: "Cursos Técnicos", desc: "Presencial • Reconhecido pelo MEC", href: "cursos.html#tecnico", icon: "stethoscope" },
     { label: "EJA e Profissionalizantes", desc: "EJA online, Mecânica e Eletrotécnica", href: "cursos.html#eja", icon: "wrench" },
     { label: "Faculdade Multivix", desc: "Graduação, Pós e MBA EAD", href: "cursos.html#multivix", icon: "graduation-cap" },
   ] },
@@ -55,7 +107,7 @@ function nav(active, r) {
 export function render(meta, body, r) {
   const canonical = SITE.url + "/" + (meta.path || "");
   const title = meta.title ? `${meta.title} | ${SITE.name}` : `${SITE.name} | Curso Técnico de Enfermagem em Eunápolis-BA`;
-  const ogImage = `${SITE.url}/assets/img/${meta.image || "escola.jpg"}`;
+  const ogImage = /^https:/.test(meta.image ?? "") ? meta.image : `${SITE.url}/assets/img/${meta.image || "escola.jpg"}`;
   const jsonld = meta.path === "" ? `
   <script type="application/ld+json">
   {
@@ -66,7 +118,7 @@ export function render(meta, body, r) {
     "logo": "${SITE.url}/assets/img/logo-humaniza.png",
     "image": "${SITE.url}/assets/img/escola.jpg",
     "telephone": "+55 73 98869-9253",
-    "email": "${SITE.email1}",
+    "email": "${esc(SITE.email1)}",
     "address": { "@type": "PostalAddress", "streetAddress": "Av. Rui Barbosa, 56 - Centro", "addressLocality": "Eunápolis", "addressRegion": "BA", "addressCountry": "BR" },
     "parentOrganization": { "@type": "Organization", "name": "EBIQS Educação" },
     "sameAs": ["${SITE.instagram}"]
@@ -78,8 +130,8 @@ export function render(meta, body, r) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${title}</title>
-  <meta name="description" content="${meta.description}">
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(meta.description)}">
   <meta name="theme-color" content="#0d4d5a">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="format-detection" content="telephone=no">
@@ -87,8 +139,8 @@ export function render(meta, body, r) {
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="${SITE.name}">
-  <meta property="og:title" content="${meta.title || SITE.name}">
-  <meta property="og:description" content="${meta.description}">
+  <meta property="og:title" content="${esc(meta.title || SITE.name)}">
+  <meta property="og:description" content="${esc(meta.description)}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${ogImage}">
   <meta name="twitter:card" content="summary_large_image">
@@ -106,7 +158,7 @@ export function render(meta, body, r) {
   <div class="topbar">
     <div class="container">
       <ul class="topbar__list">
-        <li class="topbar__hide-sm"><span>${icon("map-pin")} ${SITE.address}</span></li>
+        <li class="topbar__hide-sm"><span>${icon("map-pin")} ${esc(SITE.address)}</span></li>
         <li><a href="${wa(SITE.phone1)}" target="_blank" rel="noopener noreferrer">${icon("phone")} ${SITE.phone1Label}</a></li>
       </ul>
       <ul class="topbar__list topbar__hide-sm">
@@ -150,7 +202,7 @@ ${body.replace(/\{\{r\}\}/g, r).trim()}
       <div class="footer__grid">
         <div class="footer__brand">
           <a class="logo-box" href="${r}index.html"><img src="${r}assets/img/logo-humaniza.png" alt="${SITE.name}" width="135" height="42" loading="lazy"></a>
-          <p>Formação técnica em saúde com aulas presenciais, prática supervisionada e diploma válido em todo o Brasil. Educação que transforma vidas no Extremo Sul da Bahia.</p>
+          <p>${esc(CONTEUDO?.geral.textoRodape)}</p>
           <h3 class="footer__follow">Siga nossa rede</h3>
           <div class="socials">
             <a href="${SITE.instagram}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">${icon("instagram")}</a>
@@ -171,27 +223,24 @@ ${body.replace(/\{\{r\}\}/g, r).trim()}
         <div>
           <h3>Cursos</h3>
           <ul class="footer__links">
-            <li><a href="${r}cursos.html#tecnico">Técnico em Enfermagem</a></li>
-            <li><a href="${r}cursos.html#eja">EJA Online</a></li>
-            <li><a href="${r}cursos.html#eja">Mecânica e Eletrotécnica</a></li>
-            <li><a href="${r}cursos.html#multivix">Graduação e Pós Multivix</a></li>
+            ${(CONTEUDO?.cursos ?? []).slice(0, 5).map((cu) => `<li><a href="${r}cursos.html#${esc(cu.slug)}">${esc(cu.nome)}</a></li>`).join("\n            ")}
             <li><a href="${SITE.portal}" target="_blank" rel="noopener noreferrer">Portal do Aluno</a></li>
           </ul>
         </div>
         <div>
           <h3>Atendimento</h3>
           <ul class="footer__contact">
-            <li>${icon("map-pin")}<span>${SITE.address}</span></li>
-            <li>${icon("phone")}<span><strong>Bárbara Lima</strong><a href="${wa(SITE.phone1)}" target="_blank" rel="noopener noreferrer">${SITE.phone1Label}</a></span></li>
-            <li>${icon("phone")}<span><strong>Marcelo Monteiro</strong><a href="${wa(SITE.phone2)}" target="_blank" rel="noopener noreferrer">${SITE.phone2Label}</a></span></li>
+            <li>${icon("map-pin")}<span>${esc(SITE.address)}</span></li>
+            <li>${icon("phone")}<span><strong>${esc(CONTEUDO?.geral.contato1Nome)}</strong><a href="${wa(SITE.phone1)}" target="_blank" rel="noopener noreferrer">${SITE.phone1Label}</a></span></li>
+            <li>${icon("phone")}<span><strong>${esc(CONTEUDO?.geral.contato2Nome)}</strong><a href="${wa(SITE.phone2)}" target="_blank" rel="noopener noreferrer">${SITE.phone2Label}</a></span></li>
             <li>${icon("mail")}<span><a href="mailto:${SITE.email1}">${SITE.email1}</a><br><a href="mailto:${SITE.email2}">${SITE.email2}</a></span></li>
-            <li>${icon("clock")}<span>Aulas: segunda a sexta, 19h às 21h30</span></li>
+            <li>${icon("clock")}<span>${esc(CONTEUDO?.geral.horarioAulas)}</span></li>
           </ul>
         </div>
       </div>
       <div class="footer__holding">
         <img src="${r}assets/img/logo-ebiqs.png" alt="EBIQS Educação" width="62" height="44" loading="lazy">
-        <p>A ${SITE.name} é controlada pela <strong>EBIQS Educação</strong>, holding que garante suporte administrativo, inovação tecnológica e rigor acadêmico.</p>
+        <p>${esc(CONTEUDO?.geral.textoHolding)}</p>
         <img class="sistec" src="${r}assets/img/parceiros/sistec.png" alt="Cadastrada no SISTEC/MEC" width="140" height="28" loading="lazy">
       </div>
       <div class="footer__bottom">

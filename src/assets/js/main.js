@@ -310,8 +310,7 @@
     try { window.top.location = window.self.location; } catch (err) { document.body.innerHTML = ""; }
   }
 
-  /* ---------- Formulário de contato → WhatsApp ---------- */
-  var PHONES = { geral: "5573988699253", multivix: "5573999042342" };
+  /* ---------- Formulário de contato → painel (Inscrições) + WhatsApp ---------- */
   var form = document.querySelector("#form-contato");
   if (form) {
     var tel = form.querySelector("#telefone");
@@ -338,11 +337,28 @@
       var nome = form.nome.value.trim();
       var interesse = form.interesse.value;
       var msg = form.mensagem.value.trim();
+      var opcao = form.interesse.options[form.interesse.selectedIndex];
+      var phone = (opcao && opcao.getAttribute("data-fone")) || form.getAttribute("data-fone1");
+
+      // Registra o interessado no painel (sem bloquear o WhatsApp se o painel estiver fora do ar).
+      var endpoint = form.getAttribute("data-endpoint");
+      if (endpoint && window.fetch && !form.site.value) {
+        try {
+          fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome: nome, telefone: form.telefone.value, interesse: interesse, mensagem: msg, site: form.site.value }),
+            keepalive: true,
+            mode: "cors",
+            credentials: "omit",
+          }).catch(function () {});
+        } catch (err) {}
+      }
+
       var texto = "Olá! Meu nome é " + nome + ".\n" +
         "Tenho interesse em: " + interesse + ".\n" +
         "Telefone: " + form.telefone.value +
         (msg ? "\n\n" + msg : "");
-      var phone = /Multivix/i.test(interesse) ? PHONES.multivix : PHONES.geral;
       window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
     });
 

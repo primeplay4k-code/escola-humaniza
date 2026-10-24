@@ -1,0 +1,380 @@
+{
+  "geradoEm": "2026-10-24T19:23:38.045Z",
+  "geral": {
+    "nomeEscola": "Escola Técnica Humaniza",
+    "endereco": "Av. Rui Barbosa, nº 56 — Centro, Eunápolis - BA",
+    "contato1Nome": "Bárbara Lima",
+    "contato1Telefone": "5573988699253",
+    "contato1Email": "barbara.lima@ebiqs.com",
+    "contato1Area": "Cursos Técnicos, EJA e Profissionalizantes",
+    "contato2Nome": "Marcelo Monteiro",
+    "contato2Telefone": "5573999042342",
+    "contato2Email": "marcelo.monteiro@ebiqs.com",
+    "contato2Area": "Graduação, Pós e MBA Multivix",
+    "instagram": "https://www.instagram.com/humanizaeunapolisba/",
+    "portalAluno": "https://portal.ebiqs.com/",
+    "formularioInscricao": "https://forms.office.com/pages/responsepage.aspx?id=GCci0zGTrkWLTDDRTvtBtK_ZhaCaVd1DpPS6YgFAr2xUNjgwWTVIOE5GNlhES0hJUlhOQURYTVM0Ui4u&route=shorturl",
+    "horarioAulas": "Aulas: segunda a sexta, 19h às 21h30",
+    "textoRodape": "Formação técnica em saúde com aulas presenciais, prática supervisionada e diploma válido em todo o Brasil. Educação que transforma vidas no Extremo Sul da Bahia.",
+    "textoHolding": "A Escola Técnica Humaniza é controlada pela EBIQS Educação, holding que garante suporte administrativo, inovação tecnológica e rigor acadêmico."
+  },
+  "inicio": {
+    "heroSelo": "à Escola Técnica Humaniza",
+    "heroTitulo": "Transforme seu futuro com",
+    "heroDestaque": "educação de qualidade!",
+    "heroTexto": "Cursos técnicos presenciais, Graduação e Pós pela Multivix, além de EJA online e formações em Mecânica e Eletrotécnica.",
+    "heroImagem": "/assets/img/escola.jpg",
+    "parceirosTexto": "A Humaniza tem orgulho de parcerias que elevam a formação à excelência.",
+    "sobreTitulo": "Referência em Cursos Técnicos",
+    "sobreTexto": "Na Humaniza, proporcionamos uma educação de qualidade com cursos presenciais e EAD, focados no desenvolvimento profissional e nas melhores oportunidades de carreira.",
+    "sobreItens": [
+      "Professores especializados",
+      "Cursos voltados para sua carreira",
+      "Convênios com hospitais e atividades de extensão"
+    ],
+    "sobreImagem": "/assets/img/cursos/priscila-enfermagem.jpg",
+    "depoimentoTexto": "Estudar Técnico em Enfermagem presencialmente tem sido uma experiência prática e enriquecedora.",
+    "depoimentoNome": "Ana Leticia",
+    "depoimentoCargo": "Técnica de enfermagem",
+    "depoimentoFoto": "/assets/img/depoimento-ana-leticia.png",
+    "diferenciaisTitulo": "Amplie suas habilidades e destaque-se no mercado de trabalho",
+    "diferenciaisTexto": "Garantimos um ensino de excelência, preparando nossos alunos para o sucesso no mercado de trabalho.",
+    "diferenciais": [
+      {
+        "titulo": "Excelência comprovada",
+        "texto": "Oferecemos ensino de qualidade que prepara nossos alunos para o sucesso."
+      },
+      {
+        "titulo": "Certificado reconhecido",
+        "texto": "Validando sua conquista e abrindo portas para novas oportunidades profissionais."
+      },
+      {
+        "titulo": "Cuidado individualizado",
+        "texto": "Estamos sempre disponíveis para ajudar você a qualquer hora, todos os dias da semana."
+      },
+      {
+        "titulo": "Profissionais especializados",
+        "texto": "Garantindo a melhor qualidade e experiência de aprendizado."
+      },
+      {
+        "titulo": "Aulas presenciais",
+        "texto": "Com ensino de qualidade e interação direta."
+      },
+      {
+        "titulo": "Aulas EAD",
+        "texto": "Flexíveis, para você aprender no seu ritmo, de qualquer lugar."
+      }
+    ],
+    "blogTitulo": "Artigos e Blog da Humaniza",
+    "blogTexto": "Conquiste seu sucesso com dicas e novidades sobre educação e carreira.",
+    "ctaTitulo": "Sua nova carreira começa agora.",
+    "ctaTexto": "Garanta sua vaga na próxima turma. Atendimento pelo WhatsApp todos os dias da semana."
+  },
+  "sobre": {
+    "titulo": "Sobre Nós",
+    "subtitulo": "Educação profissional com excelência, responsabilidade social e foco no desenvolvimento humano.",
+    "historia": [
+      "A Escola Técnica Humaniza iniciou suas atividades com o propósito de oferecer educação profissional com excelência, responsabilidade social e foco no desenvolvimento humano. Atuando nas áreas da saúde, a Humaniza prepara técnicos qualificados para os desafios do mercado de trabalho, promovendo a formação ética, atualizada e humanizada.",
+      "Comprometida com o futuro dos seus alunos, a Humaniza oferece cursos técnicos modernos, com infraestrutura de qualidade, professores experientes e metodologias ativas de ensino-aprendizagem.",
+      "A instituição é controlada pela EBIQS Educação, holding educacional que garante suporte administrativo, inovação tecnológica e rigor acadêmico em todos os processos."
+    ],
+    "imagem": "/assets/img/escola.jpg",
+    "valoresTitulo": "Compromisso com a educação, inovação e o seu futuro profissional.",
+    "missao": "Na EBIQS, nossa missão é promover formação de qualidade, capacitando os alunos para enfrentar os desafios do mercado de trabalho com confiança e competência. Estamos comprometidos com o desenvolvimento pessoal e profissional de cada estudante, preparando-os para contribuir ativamente com o crescimento socioeconômico da região. Nossa busca constante é formar profissionais éticos, inovadores e preparados para alcançar o sucesso em suas trajetórias profissionais.",
+    "visao": "Nossa visão é ser a instituição líder em Educação Técnica de Nível Médio a distância no Extremo Sul Baiano, destacando-se pela qualidade do ensino, inovação contínua e pelo comprometimento com a formação integral dos nossos alunos. Almejamos ser reconhecidos como a principal escolha para quem busca educação acessível, de excelência e que prepara os estudantes para os desafios e oportunidades do mercado de trabalho.",
+    "valores": [
+      {
+        "titulo": "Excelência",
+        "texto": "Buscamos a excelência em todas as nossas ações, garantindo um ensino de alta qualidade, infraestrutura de ponta e um atendimento dedicado aos nossos alunos."
+      },
+      {
+        "titulo": "Ética",
+        "texto": "Atuamos com integridade, honestidade e respeito em todas as nossas relações, criando um ambiente de confiança e responsabilidade, tanto dentro quanto fora da instituição."
+      },
+      {
+        "titulo": "Inovação",
+        "texto": "Estamos em constante busca por novas metodologias educacionais e tecnologias que proporcionem uma experiência de aprendizagem moderna, dinâmica e relevante."
+      },
+      {
+        "titulo": "Comprometimento",
+        "texto": "Nosso compromisso é com o sucesso dos alunos, oferecendo suporte contínuo e orientação para garantir o seu crescimento acadêmico e profissional."
+      },
+      {
+        "titulo": "Acessibilidade",
+        "texto": "Acreditamos que a educação de qualidade deve ser acessível a todos, oferecendo programas flexíveis que atendem às diversas necessidades dos nossos estudantes."
+      },
+      {
+        "titulo": "Empreendedorismo",
+        "texto": "Incentivamos o desenvolvimento do espírito empreendedor, preparando nossos alunos para enfrentar desafios e se destacar no mercado de trabalho, contribuindo para o crescimento da sociedade."
+      }
+    ]
+  },
+  "faq": [
+    {
+      "pergunta": "Quais cursos a Humaniza oferece?",
+      "resposta": "Curso Técnico em Enfermagem – Presencial: formação completa para atuar na área da saúde, com aulas práticas e teóricas. Também oferecemos EJA online, formações em Mecânica e Eletrotécnica e Graduação, Pós-graduação e MBA EAD pela Faculdade Multivix."
+    },
+    {
+      "pergunta": "Como posso me inscrever em um curso?",
+      "resposta": "Você pode se inscrever diretamente no nosso site, na aba CURSOS. Basta escolher o curso desejado, preencher o formulário de inscrição e seguir as instruções para completar o processo."
+    },
+    {
+      "pergunta": "A EBIQS oferece cursos EAD?",
+      "resposta": "Sim! Oferecemos uma variedade de cursos EAD pela Multivix que permitem aprender de forma flexível e no seu próprio ritmo, com todo o suporte necessário para seu aprendizado."
+    },
+    {
+      "pergunta": "Preciso de experiência anterior para ingressar nos cursos?",
+      "resposta": "Não, nossos cursos são destinados a todos os níveis de conhecimento, desde iniciantes até aqueles que já possuem alguma experiência na área."
+    },
+    {
+      "pergunta": "Os cursos são reconhecidos?",
+      "resposta": "Sim, todos os nossos cursos são reconhecidos por órgãos competentes e preparados para garantir sua qualificação profissional no mercado de trabalho. O Curso Técnico em Enfermagem é reconhecido pelo Sistec/MEC e nossos cursos EAD têm certificação válida e são reconhecidos pelo MEC."
+    },
+    {
+      "pergunta": "Há desconto para grupos ou empresas?",
+      "resposta": "Sim, oferecemos descontos especiais para grupos ou empresas que inscrevem múltiplos alunos. Para mais informações, entre em contato com nossa equipe de atendimento."
+    }
+  ],
+  "cursos": [
+    {
+      "whatsapp": null,
+      "horario": "19:00 às 21:30",
+      "descricao": "O Curso Técnico em Enfermagem da Escola Técnica Humaniza foi desenvolvido para formar profissionais capacitados para atuar em diversas áreas da saúde. Com uma abordagem prática e teórica, o curso oferece uma sólida formação, preparando os alunos para atender às demandas do mercado de trabalho com competência e ética.\nAtravés de aulas presenciais e práticas supervisionadas, os alunos aprenderão a realizar procedimentos de enfermagem, cuidados com pacientes, gestão de unidades de saúde, e muito mais. O curso é reconhecido pelo MEC, e ao final da formação, o aluno receberá certificado válido em todo o Brasil.",
+      "oportunidades": "O mercado para Técnicos em Enfermagem está em crescimento constante, com a crescente demanda por serviços de saúde no Brasil. Com uma formação sólida e prática, esses profissionais são essenciais em hospitais, clínicas e atendimento domiciliar, desempenhando um papel crucial na saúde pública e privada.",
+      "imagem": "/assets/img/cursos/priscila-enfermagem.jpg",
+      "mensagemWhatsapp": "Quero estudar Curso Técnico.",
+      "ordem": 1,
+      "id": 1,
+      "publicado": true,
+      "slug": "tecnico-em-enfermagem",
+      "nome": "Técnico em Enfermagem",
+      "categoria": "tecnico",
+      "modalidade": "Presencial",
+      "resumo": "Formação completa para atuar na área da saúde, com aulas práticas e teóricas.",
+      "inclui": [
+        "Aulas teóricas e práticas",
+        "Materiais didáticos atualizados",
+        "Acesso a um laboratório revolucionário",
+        "Certificado de conclusão reconhecido"
+      ],
+      "destaques": [
+        "Professores especializados",
+        "Convênios com hospitais",
+        "Atividades de extensão"
+      ]
+    },
+    {
+      "whatsapp": null,
+      "horario": null,
+      "descricao": null,
+      "oportunidades": null,
+      "imagem": null,
+      "mensagemWhatsapp": "Quero estudar EJA ou Curso Profissionalizante.",
+      "ordem": 2,
+      "id": 2,
+      "publicado": true,
+      "slug": "eja-online",
+      "nome": "EJA Online",
+      "categoria": "eja",
+      "modalidade": "Online",
+      "resumo": "Educação de Jovens e Adultos a distância para concluir seus estudos no seu ritmo.",
+      "inclui": [],
+      "destaques": []
+    },
+    {
+      "whatsapp": null,
+      "horario": null,
+      "descricao": null,
+      "oportunidades": null,
+      "imagem": null,
+      "mensagemWhatsapp": "Quero estudar EJA ou Curso Profissionalizante.",
+      "ordem": 3,
+      "id": 3,
+      "publicado": true,
+      "slug": "mecanica",
+      "nome": "Mecânica",
+      "categoria": "profissionalizante",
+      "modalidade": "Presencial",
+      "resumo": "Formação profissionalizante para quem quer atuar na área de mecânica.",
+      "inclui": [],
+      "destaques": []
+    },
+    {
+      "whatsapp": null,
+      "horario": null,
+      "descricao": null,
+      "oportunidades": null,
+      "imagem": null,
+      "mensagemWhatsapp": "Quero estudar EJA ou Curso Profissionalizante.",
+      "ordem": 4,
+      "id": 4,
+      "publicado": true,
+      "slug": "eletrotecnica",
+      "nome": "Eletrotécnica",
+      "categoria": "profissionalizante",
+      "modalidade": "Presencial",
+      "resumo": "Formação profissionalizante para quem quer atuar na área de eletrotécnica.",
+      "inclui": [],
+      "destaques": []
+    },
+    {
+      "whatsapp": "5573999042342",
+      "horario": null,
+      "descricao": "Estude a distância na Multivix e conquiste seu reconhecimento no mercado de trabalho com a qualidade de uma das melhores faculdades do Brasil.",
+      "oportunidades": null,
+      "imagem": "/assets/img/cursos/multivix-2.jpg",
+      "mensagemWhatsapp": "Quero estudar na Multivix.",
+      "ordem": 5,
+      "id": 5,
+      "publicado": true,
+      "slug": "graduacao-ead-multivix",
+      "nome": "Graduação EAD",
+      "categoria": "superior",
+      "modalidade": "EAD",
+      "resumo": "A Faculdade Multivix é conhecida pelos seus excelentes resultados junto ao MEC nos cursos superiores de graduação EAD.",
+      "inclui": [
+        "Diploma reconhecido pelo MEC",
+        "Aulas flexíveis, para você aprender no seu ritmo, de qualquer lugar"
+      ],
+      "destaques": []
+    },
+    {
+      "whatsapp": "5573999042342",
+      "horario": null,
+      "descricao": null,
+      "oportunidades": null,
+      "imagem": "/assets/img/cursos/multivix-1.jpg",
+      "mensagemWhatsapp": "Quero estudar na Multivix.",
+      "ordem": 6,
+      "id": 6,
+      "publicado": true,
+      "slug": "pos-graduacao-e-mba-multivix",
+      "nome": "Pós-graduação e MBA EAD",
+      "categoria": "superior",
+      "modalidade": "EAD",
+      "resumo": "Pós-graduação e MBA a distância pela Faculdade Multivix.",
+      "inclui": [],
+      "destaques": []
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "publicado": true,
+      "slug": "parceria-de-sucesso",
+      "titulo": "Parceria de Sucesso!",
+      "autor": "Matheus Cardoso",
+      "categoria": "Faculdade Multivix",
+      "data": "2025-03-28",
+      "imagem": "/assets/img/blog-parceria-multivix.jpg",
+      "resumo": "Parceria de sucesso! 🏥✨ A Multivix acaba de firmar uma parceria com um dos mais importantes centros médicos do mundo: o Hospital Sírio-Libanês.",
+      "conteudo": "Parceria de sucesso! 🏥✨\nA Multivix acaba de firmar uma parceria com um dos mais importantes centros médicos do mundo: o Hospital Sírio-Libanês, em São Paulo! Agora, nossos alunos de Medicina têm acesso a condições especiais para participar do programa Experiência Sírio-Libanês, que combina aprendizado teórico e vivência prática com especialistas do hospital:\n- Bolsas integrais para participação no programa.\n- 20% de desconto para todos os alunos de Medicina que utilizarem o cupom promocional MULTIVIX.\nEssa parceria reforça o compromisso da Multivix com a formação de médicos altamente capacitados, conectando nossos alunos a experiências acadêmicas e profissionais de excelência.\nAs inscrições começam no dia 27 de março e vão até 2 de abril."
+    },
+    {
+      "id": 2,
+      "publicado": true,
+      "slug": "novo-site-da-humaniza",
+      "titulo": "Novo Site da Humaniza",
+      "autor": "Equipe EBIQS",
+      "categoria": "Institucional",
+      "data": "2025-03-28",
+      "imagem": "/assets/img/blog-novo-site.png",
+      "resumo": "A EBIQS tem o prazer de apresentar seu novo site da Humaniza! Com um design moderno e fácil de navegar.",
+      "conteudo": "A EBIQS tem o prazer de apresentar seu novo site da Humaniza!\nCom um design moderno e fácil de navegar, o site foi criado para oferecer uma experiência melhor para alunos, professores e toda a comunidade escolar.\nAgora, você pode acessar informações, eventos e novidades de forma rápida e prática, seja no computador ou no celular.\nVisite o novo site e fique por dentro de tudo da Escola Técnica Humaniza."
+    }
+  ],
+  "documentos": [
+    {
+      "id": 1,
+      "publicado": true,
+      "titulo": "Matriz Curricular 26.1",
+      "descricao": "Clique para baixar a matriz curricular 26.1",
+      "arquivo": "/assets/docs/matriz-curricular-26.1.pdf",
+      "tamanho": "195 KB",
+      "ordem": 1
+    },
+    {
+      "id": 2,
+      "publicado": true,
+      "titulo": "Edital 25.2",
+      "descricao": "Clique para baixar o Edital 25.2 - Técnico de enfermagem",
+      "arquivo": "/assets/docs/edital-25.2-tecnico-enfermagem.pdf",
+      "tamanho": "576 KB",
+      "ordem": 2
+    }
+  ],
+  "parceiros": [
+    {
+      "link": null,
+      "id": 1,
+      "publicado": true,
+      "nome": "Faculdade Multivix",
+      "logo": "/assets/img/parceiros/multivix.jpg",
+      "ordem": 1
+    },
+    {
+      "link": null,
+      "id": 2,
+      "publicado": true,
+      "nome": "Microsoft Education",
+      "logo": "/assets/img/parceiros/microsoft-education.webp",
+      "ordem": 2
+    },
+    {
+      "link": null,
+      "id": 3,
+      "publicado": true,
+      "nome": "SISTEC",
+      "logo": "/assets/img/parceiros/sistec.png",
+      "ordem": 3
+    },
+    {
+      "link": null,
+      "id": 4,
+      "publicado": true,
+      "nome": "Governo Municipal de Itagimirim",
+      "logo": "/assets/img/parceiros/itagimirim.png",
+      "ordem": 4
+    },
+    {
+      "link": null,
+      "id": 5,
+      "publicado": true,
+      "nome": "Prefeitura de Itabela",
+      "logo": "/assets/img/parceiros/itabela.png",
+      "ordem": 5
+    },
+    {
+      "link": null,
+      "id": 6,
+      "publicado": true,
+      "nome": "Prefeitura de Guaratinga",
+      "logo": "/assets/img/parceiros/guaratinga.png",
+      "ordem": 6
+    },
+    {
+      "link": null,
+      "id": 7,
+      "publicado": true,
+      "nome": "Prefeitura Municipal de Salto da Divisa",
+      "logo": "/assets/img/parceiros/salto-da-divisa.png",
+      "ordem": 7
+    },
+    {
+      "link": null,
+      "id": 8,
+      "publicado": true,
+      "nome": "Parceiro institucional",
+      "logo": "/assets/img/parceiros/parceiro-n.jpg",
+      "ordem": 8
+    },
+    {
+      "link": null,
+      "id": 9,
+      "publicado": true,
+      "nome": "Softcloudba Tecnologia & Inovação",
+      "logo": "/assets/img/softcloudba.png",
+      "ordem": 9
+    }
+  ]
+}

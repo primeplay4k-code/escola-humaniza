@@ -22,9 +22,9 @@ export default ({ SITE, r }) => `
         <p>Este site pertence à ${SITE.name}, mantida pela EBIQS Educação, com endereço na ${SITE.address}. Para assuntos de privacidade, entre em contato pelo e-mail <a href="mailto:${SITE.email1}">${SITE.email1}</a>.</p>
 
         <h2>2. Quais dados coletamos</h2>
-        <p>Este site não possui cadastro, login nem banco de dados. Não armazenamos dados pessoais em nossos servidores. Os dados só chegam até nós quando você decide entrar em contato:</p>
+        <p>Este site não possui cadastro nem login para visitantes. Os dados só chegam até nós quando você decide entrar em contato:</p>
         <ul>
-          <li><strong>Formulário de contato:</strong> nome, telefone, curso de interesse e mensagem são usados apenas para montar uma mensagem que é aberta no seu WhatsApp. O envio só acontece se você confirmar no aplicativo.</li>
+          <li><strong>Formulário de contato:</strong> nome, telefone, curso de interesse e mensagem são registrados no sistema interno da escola, acessível apenas à equipe autorizada, para que possamos retornar o seu contato. Também é aberta uma conversa no seu WhatsApp, que só é enviada se você confirmar no aplicativo. Para evitar abusos, registramos ainda o endereço IP de quem envia o formulário.</li>
           <li><strong>WhatsApp, e-mail e telefone:</strong> as informações que você nos enviar por esses canais.</li>
           <li><strong>Formulário de inscrição (Microsoft Forms):</strong> dados preenchidos na ficha de matrícula, tratados conforme a política da Microsoft.</li>
         </ul>
@@ -35,6 +35,8 @@ export default ({ SITE, r }) => `
           <li>Realizar e acompanhar processos de matrícula;</li>
           <li>Cumprir obrigações legais e regulatórias educacionais.</li>
         </ul>
+
+        <p>Os dados do formulário de contato são mantidos enquanto forem necessários para o atendimento e podem ser excluídos a qualquer momento mediante solicitação.</p>
 
         <h2>4. Compartilhamento</h2>
         <p>Não vendemos nem alugamos seus dados. Eles podem ser compartilhados com a EBIQS Educação e com instituições parceiras (como a Faculdade Multivix) somente quando necessário para a matrícula no curso escolhido por você.</p>

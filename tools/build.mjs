@@ -5,12 +5,13 @@ import * as fs from "node:fs/promises";
 import { readdir, stat } from "node:fs/promises";
 import { join, relative, dirname, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { render, icon, iconFill, wa, SITE } from "../src/layout.mjs";
+import { render, icon, iconFill, wa, esc, arq, rico, foneBr, configurar, SITE } from "../src/layout.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "src");
 const DIST = join(ROOT, "dist");
 const DEV = process.argv.includes("--dev");
+const PAINEL = (process.env.PAINEL_URL ?? "https://escola-humaniza-admin.vercel.app").replace(/\/$/, "");
 
 // OneDrive/TeraBox podem travar arquivos durante a sincronização (EBUSY/EPERM):
 // cada operação de disco é repetida algumas vezes antes de falhar.
@@ -53,21 +54,47 @@ async function loadMinifiers() {
   return { minifyHtml, CleanCSS, Obfuscator };
 }
 
+/** Conteúdo do painel admin; se o painel não responder, usa a cópia de segurança src/content.json. */
+async function carregarConteudo() {
+  const reserva = JSON.parse(await readFile(join(SRC, "content.json"), "utf8"));
+  if (process.env.CONTEUDO_LOCAL) return { c: reserva, origem: "cópia local (CONTEUDO_LOCAL)" };
+  try {
+    const res = await fetch(`${PAINEL}/api/public/site`, {
+      headers: process.env.SITE_BUILD_TOKEN ? { Authorization: `Bearer ${process.env.SITE_BUILD_TOKEN}` } : {},
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const c = await res.json();
+    if (!c?.geral || !Array.isArray(c.cursos)) throw new Error("resposta inválida");
+    return { c, origem: "painel admin" };
+  } catch (err) {
+    return { c: reserva, origem: `cópia local (painel indisponível: ${err.message})` };
+  }
+}
+
 async function main() {
   const t0 = Date.now();
   const min = await loadMinifiers();
+  const { c, origem } = await carregarConteudo();
+  configurar(c);
+  console.log(`• Conteúdo: ${origem}`);
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
 
   // 1. Páginas
-  const pages = (await walk(join(SRC, "pages"))).filter((f) => f.endsWith(".mjs"));
-  const sitemap = [];
-  for (const file of pages) {
+  const arquivos = (await walk(join(SRC, "pages"))).filter((f) => f.endsWith(".mjs"));
+  // Páginas comuns geram 1 HTML; módulos com `paginas(c)` (ex.: blog/_post.mjs) geram um HTML por item.
+  const pages = [];
+  for (const file of arquivos) {
     const mod = await import(pathToFileURL(file).href);
-    const rel = relative(join(SRC, "pages"), file).split(sep).join("/").replace(/\.mjs$/, ".html");
+    if (mod.paginas) for (const pg of mod.paginas(c)) pages.push({ rel: pg.arquivo, meta: pg.meta, corpo: (h) => mod.default(h, pg.dados) });
+    else pages.push({ rel: relative(join(SRC, "pages"), file).split(sep).join("/").replace(/\.mjs$/, ".html"), meta: mod.meta, corpo: (h) => mod.default(h) });
+  }
+  const sitemap = [];
+  for (const { rel, meta, corpo } of pages) {
     const depth = rel.split("/").length - 1;
-    const r = mod.meta.absolute ? "/" : "../".repeat(depth);
-    let html = render(mod.meta, mod.default({ icon, iconFill, wa, SITE, r }), r);
+    const r = meta.absolute ? "/" : "../".repeat(depth);
+    let html = render(meta, corpo({ icon, iconFill, wa, esc, arq, rico, foneBr, SITE, c, r, painel: PAINEL }), r);
     if (min) {
       html = await min.minifyHtml(html, {
         collapseWhitespace: true,
