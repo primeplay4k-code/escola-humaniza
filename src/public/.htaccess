@@ -62,6 +62,7 @@ ErrorDocument 404 /404.html
   # Cache: arquivos estáticos por 1 ano, HTML sempre revalidado
   <FilesMatch "\.(css|js|png|jpe?g|webp|svg|woff2?|pdf)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+    Header always set Cross-Origin-Resource-Policy "cross-origin"
   </FilesMatch>
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache"
